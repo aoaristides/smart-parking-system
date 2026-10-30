@@ -1,0 +1,8 @@
+# Substitui o application.yaml principal nos testes. Sem datasource.url: o Spring Boot
+# sobe um H2 embutido com nome único por contexto, sem tocar no MySQL de desenvolvimento.
+spring:
+  application:
+    name: smart-parking-system
+  jpa:
+    hibernate:
+      ddl-auto: create-drop

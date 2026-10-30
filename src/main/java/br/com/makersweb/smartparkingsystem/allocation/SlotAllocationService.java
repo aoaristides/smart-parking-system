@@ -3,7 +3,7 @@ package br.com.makersweb.smartparkingsystem.allocation;
 import br.com.makersweb.smartparkingsystem.event.VehicleEnteredEvent;
 import br.com.makersweb.smartparkingsystem.event.VehicleExitedEvent;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.event.EventListener;
+import org.springframework.modulith.events.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,7 +19,7 @@ public class SlotAllocationService {
         this.slotRepository = slotRepository;
     }
 
-    @EventListener
+    @ApplicationModuleListener
     public void handleVehicleEntry(final VehicleEnteredEvent event) {
         var slot = slotRepository.findFirstByAvailableTrue()
                 .orElseThrow(() -> new RuntimeException("No available slots"));
@@ -31,7 +31,7 @@ public class SlotAllocationService {
         log.info("Allocated Slot {} to vehicle {}", slot.getSlotCode(), event.vehicleNumber());
     }
 
-    @EventListener
+    @ApplicationModuleListener
     public void handleVehicleExit(final VehicleExitedEvent event) {
         slotRepository.findByVehicleNumber(event.vehicleNumber())
                 .ifPresentOrElse(slot -> {

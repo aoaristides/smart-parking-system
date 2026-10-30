@@ -4,6 +4,7 @@ import br.com.makersweb.smartparkingsystem.event.VehicleEnteredEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -22,6 +23,7 @@ public class EntryService {
         this.publisher = publisher;
     }
 
+    @Transactional
     public void vehicleEntry(final String vehicleNumber) {
         var entry = new ParkingEntry(null, vehicleNumber, LocalDateTime.now(), null, true);
         repository.save(entry);

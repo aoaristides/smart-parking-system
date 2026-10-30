@@ -4,6 +4,7 @@ import br.com.makersweb.smartparkingsystem.event.VehicleExitedEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -22,6 +23,7 @@ public class ExitService {
         this.publisher = publisher;
     }
 
+    @Transactional
     public void vehicleExit(final String vehicleNumber) {
         var entry = repository.findByVehicleNumberAndActiveTrue(vehicleNumber)
                 .orElseThrow(() -> new RuntimeException("No active entry found for vehicle " + vehicleNumber));

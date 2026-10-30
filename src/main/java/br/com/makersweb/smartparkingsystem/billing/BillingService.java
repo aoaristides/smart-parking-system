@@ -2,7 +2,7 @@ package br.com.makersweb.smartparkingsystem.billing;
 
 import br.com.makersweb.smartparkingsystem.event.VehicleExitedEvent;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.event.EventListener;
+import org.springframework.modulith.events.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -20,7 +20,7 @@ public class BillingService {
         this.billingRecordRepository = billingRecordRepository;
     }
 
-    @EventListener
+    @ApplicationModuleListener
     public void handleVehicleExit(final VehicleExitedEvent event) {
         Duration duration = Duration.between(event.entryTime(), event.exitTime());
         double amount = Math.max(20, (duration.toMinutes() / 60.0) * 50);

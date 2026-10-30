@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: smart-parking-system
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/smart_parking
+    username: parking
+    password: parking123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
